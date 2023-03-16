@@ -1,28 +1,26 @@
 package seedu.library;
 
+import javafx.application.Application;
+import javafx.stage.Stage;
+import seedu.address.AppParameters;
+import seedu.address.commons.core.Config;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.Version;
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.util.ConfigUtil;
+import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.Logic;
+import seedu.address.logic.LogicManager;
+import seedu.address.model.*;
+import seedu.address.model.util.SampleDataUtil;
+import seedu.address.storage.*;
+import seedu.address.ui.Ui;
+import seedu.address.ui.UiManager;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
-
-import javafx.application.Application;
-import javafx.stage.Stage;
-import seedu.library.commons.core.Config;
-import seedu.library.commons.core.LogsCenter;
-import seedu.library.commons.core.Version;
-import seedu.library.commons.exceptions.DataConversionException;
-import seedu.library.commons.util.ConfigUtil;
-import seedu.library.commons.util.StringUtil;
-import seedu.library.logic.Logic;
-import seedu.library.logic.LogicManager;
-import seedu.library.model.*;
-import seedu.library.model.LibraryBook;
-import seedu.library.model.ReadOnlyLibraryBook;
-import seedu.library.model.util.SampleDataUtil;
-import seedu.library.storage.*;
-import seedu.library.storage.LibraryBookStorage;
-import seedu.library.ui.Ui;
-import seedu.library.ui.UiManager;
 
 /**
  * Runs the application.
@@ -41,7 +39,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing LibraryBook ]===========================");
+        logger.info("=============================[ Initializing AddressBook ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -49,8 +47,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        LibraryBookStorage libraryBookStorage = new JsonAddressBookStorage(userPrefs.getLibraryBookFilePath());
-        storage = new StorageManager(libraryBookStorage, userPrefsStorage);
+        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
+        storage = new StorageManager(addressBookStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -67,20 +65,20 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyLibraryBook> libraryBookOptional;
-        ReadOnlyLibraryBook initialData;
+        Optional<ReadOnlyAddressBook> addressBookOptional;
+        ReadOnlyAddressBook initialData;
         try {
-            libraryBookOptional = storage.readLibraryBook();
-            if (!libraryBookOptional.isPresent()) {
+            addressBookOptional = storage.readAddressBook();
+            if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
-            initialData = libraryBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new LibraryBook();
+            initialData = new AddressBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new LibraryBook();
+            initialData = new AddressBook();
         }
 
         return new ModelManager(initialData, userPrefs);
