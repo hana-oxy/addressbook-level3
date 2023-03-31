@@ -1,8 +1,8 @@
 package seedu.library.storage;
 
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.UserPrefs;
+import seedu.library.commons.exceptions.DataConversionException;
+import seedu.library.model.ReadOnlyUserPrefs;
+import seedu.library.model.UserPrefs;
 
 import java.io.IOException;
 import java.nio.file.Path;

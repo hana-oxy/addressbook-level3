@@ -1,7 +1,7 @@
 package seedu.library.model.util;
 
-import seedu.library.model.AddressBook;
-import seedu.library.model.ReadOnlyAddressBook;
+import seedu.library.model.LibraryBook;
+import seedu.library.model.ReadOnlyLibraryBook;
 import seedu.library.model.person.*;
 import seedu.library.model.tag.Tag;
 
@@ -36,12 +36,12 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyLibraryBook getSampleLibraryBook() {
+        LibraryBook sampleLb = new LibraryBook();
         for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
+            sampleLb.addPerson(samplePerson);
         }
-        return sampleAb;
+        return sampleLb;
     }
 
     /**

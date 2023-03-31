@@ -1,14 +1,14 @@
 package seedu.library.storage;
 
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.library.commons.exceptions.DataConversionException;
+import seedu.library.model.ReadOnlyLibraryBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
 /**
- * Represents a storage for {@link seedu.address.model.LibraryBook}.
+ * Represents a storage for {@link seedu.library.model.LibraryBook}.
  */
 public interface LibraryBookStorage {
 
@@ -32,7 +32,7 @@ public interface LibraryBookStorage {
 
     /**
      * Saves the given {@link ReadOnlyLibraryBook} to the storage.
-     * @param addressBook cannot be null.
+     * @param libraryBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
     void saveLibraryBook(ReadOnlyLibraryBook libraryBook) throws IOException;

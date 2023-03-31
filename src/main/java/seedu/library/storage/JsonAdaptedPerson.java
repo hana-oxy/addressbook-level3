@@ -2,9 +2,9 @@ package seedu.library.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.*;
-import seedu.address.model.tag.Tag;
+import seedu.library.commons.exceptions.IllegalValueException;
+import seedu.library.model.person.*;
+import seedu.library.model.tag.Tag;
 
 import java.util.ArrayList;
 import java.util.HashSet;

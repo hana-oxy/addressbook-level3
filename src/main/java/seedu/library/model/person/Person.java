@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.library.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents a Person in the address book.

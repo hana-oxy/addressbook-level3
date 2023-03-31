@@ -2,20 +2,20 @@ package seedu.library;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import seedu.address.AppParameters;
-import seedu.address.commons.core.Config;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.Version;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.util.ConfigUtil;
-import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.Logic;
-import seedu.address.logic.LogicManager;
-import seedu.address.model.*;
-import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.*;
-import seedu.address.ui.Ui;
-import seedu.address.ui.UiManager;
+import seedu.library.AppParameters;
+import seedu.library.commons.core.Config;
+import seedu.library.commons.core.LogsCenter;
+import seedu.library.commons.core.Version;
+import seedu.library.commons.exceptions.DataConversionException;
+import seedu.library.commons.util.ConfigUtil;
+import seedu.library.commons.util.StringUtil;
+import seedu.library.logic.Logic;
+import seedu.library.logic.LogicManager;
+import seedu.library.model.*;
+import seedu.library.model.util.SampleDataUtil;
+import seedu.library.storage.*;
+import seedu.library.ui.Ui;
+import seedu.library.ui.UiManager;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -39,7 +39,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing LibraryBook ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -47,8 +47,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        LibraryBookStorage libraryBookStorage = new JsonLibraryBookStorage(userPrefs.getLibraryBookFilePath());
+        storage = new StorageManager(libraryBookStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -65,20 +65,20 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyLibraryBook> libraryBookOptional;
+        ReadOnlyLibraryBook initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
+            libraryBookOptional = storage.readLibraryBook();
+            if (!libraryBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = libraryBookOptional.orElseGet(SampleDataUtil::getSampleLibraryBook);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Data file not in the correct format. Will be starting with an empty LibraryBook");
+            initialData = new LibraryBook();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Problem while reading from the file. Will be starting with an empty LibraryBook");
+            initialData = new LibraryBook();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -158,13 +158,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting LibraryBook " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Library Book ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

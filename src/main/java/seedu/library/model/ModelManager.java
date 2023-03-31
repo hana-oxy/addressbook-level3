@@ -11,10 +11,10 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.library.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the library book data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -66,13 +66,13 @@ public class ModelManager implements Model {
 
     @Override
     public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+        return userPrefs.getLibraryBookFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setAddressBookFilePath(Path libraryBookFilePath) {
+        requireNonNull(libraryBookFilePath);
+        userPrefs.setLibraryBookFilePath(libraryBookFilePath);
     }
 
     //=========== AddressBook ================================================================================

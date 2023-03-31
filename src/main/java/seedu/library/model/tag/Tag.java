@@ -1,7 +1,7 @@
 package seedu.library.model.tag;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.library.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Tag in the address book.
